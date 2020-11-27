@@ -69,7 +69,8 @@ const LocalCoopGame = ({
       <h2>This is a Local Coop Game</h2>
       {
         gameState.winner ?
-          <h3>Player {gameState.winner}!! WINNER WINNER CHICKEN DINNER!!!</h3> :
+          <><h3>Player {gameState.winner}!!</h3>
+            <h2> &#128020; &#127881; &#128020; WINNER WINNER CHICKEN DINNER!!! &#128020; &#127881; &#127881;  </h2></> :
           <h3>It's Player's {gameState.activePlayer} turn</h3>
       }
       <Board

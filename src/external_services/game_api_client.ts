@@ -15,12 +15,12 @@ export interface MakeMove {
   column: number;
 }
 
-enum Player {
+export enum Player {
   One = 1,
   Two = 2,
 }
 
-enum Tile {
+export enum Tile {
   Empty = 0,
   One = Player.One,
   Two = Player.Two,

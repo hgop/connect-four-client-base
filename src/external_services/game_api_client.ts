@@ -37,7 +37,7 @@ export interface Game {
   playerCount: number;
 }
 
-const API_URL = "http://game-server.dreamteam.hgopteam.com";
+const API_URL = "GET_URL_FROM_TAS";
 
 export class GameApiClient {
   createGame(body: CreateGame): Promise<Game> {

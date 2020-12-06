@@ -17,6 +17,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
+### `npm run lint`
+
+Runs eslint for code analysis.
+
 ### `npm run test`
 
 Launches the test runner in the interactive watch mode.\
@@ -32,6 +36,19 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+## E2E
+This project uses Cypress for E2E testing. The tests are stored in `/e2e` folder. You can run the tests in a browser in your local environment, like so:
+```
+cd e2e
+npm install
+npm run open
+```
+You can also run the tests in a terminal from inside the e2e folder (that's what the CI will do), like so:
+```
+npm test
+```
+This will run the tests on the url you added to the `cypress.json` file. If you want to run your client locally and run the tests on your local instance your can change the `baseUrl` in `cypress.json` to `http://localhost:3000`. 
+
 ## Deployment
 This application can be deployed via a docker image. I.e. a docker image can be built by running:\
 `docker build -t connect-four .`
@@ -40,18 +57,9 @@ This application can be deployed via a docker image. I.e. a docker image can be 
 
 Tag and push your docker image to a remote docker registry.
 
-Before deploying the image please make sure you've configured your kubernetes cluster and that your `~/kube/config` is correct, also updated the host, and image fields in `connect-four.yaml` with your values:
+Before deploying the image please make sure you've configured your kubernetes cluster and that your `~/kube/config` is correct, also updated the host, and image fields in `k8s.yaml.template` with your values:
 ```
-...
-  - host: "connect4.{{team-name}}.hgopteam.com"
-  ...
-  - image: docker.io/username/repository:day2
-...
-```
-To deploy your image to kubernetes run:
-```
-cat "k8s.yaml.template" | sed "s/{{IMAGE_TAG}}/day2/g" > k8s.yaml
-kubectl apply -f k8s.yaml
+bash scripts/deploy.sh "default" "production" "${IMAGE_TAG}"
 ```
 
 ## Learn More

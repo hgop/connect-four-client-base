@@ -1,0 +1,5 @@
+{
+  "baseUrl": "http://connect4-e2e.[MY_TEAM_NAME].hgopteam.com",
+  "viewportWidth": 1000,
+  "viewportHeight": 900
+}

@@ -82,8 +82,7 @@ jobs:
       - kubernetes/install-kubectl
       - kubernetes/install-kubeconfig:
           kubeconfig: KUBECONFIG_DATA
-      - run: cat "k8s.yaml.template" | sed "s/{{IMAGE_TAG}}/${CIRCLE_SHA1}/g" > k8s.yaml
-      - run: kubectl apply -f k8s.yaml
+      - run: bash scripts/deploy.sh "default" "production" "${CIRCLE_SHA1}"
 
 workflows:
   build_test_deploy:

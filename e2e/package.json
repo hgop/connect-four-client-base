@@ -1,0 +1,13 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "description": "E2E tests for connect 4",
+  "scripts": {
+    "open": "cypress open",
+    "test": "cypress run"
+  },
+  "author": "HGOP",
+  "devDependencies": {
+    "cypress": "^6.0.1"
+  }
+}

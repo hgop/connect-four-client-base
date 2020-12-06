@@ -16,46 +16,49 @@ interface AppProps {
 }
 
 interface OnlineMultiplayer {
-  type: "OnlineMultiplayer",
-  game: Game
+  type: "OnlineMultiplayer";
+  game: Game;
 }
 
 interface LocalCoop {
-  type: "LocalCoop",
-  playerOne: Game,
-  playerTwo: Game
+  type: "LocalCoop";
+  playerOne: Game;
+  playerTwo: Game;
 }
 
 interface None {
-  type: "None"
+  type: "None";
 }
 
-type GameType =
-  | OnlineMultiplayer
-  | LocalCoop
-  | None;
+type GameType = OnlineMultiplayer | LocalCoop | None;
 
-export const App = ({ columns, rows, client }: AppProps) => {
+export const App = ({
+  columns,
+  rows,
+  client,
+}: AppProps): React.ReactElement => {
   const [gameType, setGameType] = useState<GameType>({ type: "None" });
 
   const handleMultiplayerGameStart = () => {
     client.createGame({}).then((game: Game) => {
       setGameType({
         type: "OnlineMultiplayer",
-        game: game
+        game: game,
       });
     });
   };
 
   const handleLocalGameStart = () => {
     client.createGame({}).then((player_one_game: Game) => {
-      client.joinGame({ gameId: player_one_game.gameId }).then((player_two_game: Game) => {
-        setGameType({
-          type: "LocalCoop",
-          playerOne: player_one_game,
-          playerTwo: player_two_game
+      client
+        .joinGame({ gameId: player_one_game.gameId })
+        .then((player_two_game: Game) => {
+          setGameType({
+            type: "LocalCoop",
+            playerOne: player_one_game,
+            playerTwo: player_two_game,
+          });
         });
-      });
     });
   };
 
@@ -63,36 +66,42 @@ export const App = ({ columns, rows, client }: AppProps) => {
     client.joinGame({ gameId: gameId }).then((game: Game) => {
       setGameType({
         type: "OnlineMultiplayer",
-        game: game
+        game: game,
       });
     });
   };
 
   switch (gameType.type) {
     case "OnlineMultiplayer":
-      return <OnlineMultiplayerGame
-        initialGame={gameType.game}
-        columns={columns}
-        rows={rows}
-        client={client}
-        handlePlayAgain={() => setGameType({ type: "None" })}
-      />;
+      return (
+        <OnlineMultiplayerGame
+          initialGame={gameType.game}
+          columns={columns}
+          rows={rows}
+          client={client}
+          handlePlayAgain={() => setGameType({ type: "None" })}
+        />
+      );
     case "LocalCoop":
-      return <LocalCoopGame
-        initialGame={gameType.playerOne}
-        playerOneId={gameType.playerOne.playerId}
-        playerTwoId={gameType.playerTwo.playerId}
-        columns={columns}
-        rows={rows}
-        client={client}
-        handlePlayAgain={() => setGameType({ type: "None" })}
-      />;
+      return (
+        <LocalCoopGame
+          initialGame={gameType.playerOne}
+          playerOneId={gameType.playerOne.playerId}
+          playerTwoId={gameType.playerTwo.playerId}
+          columns={columns}
+          rows={rows}
+          client={client}
+          handlePlayAgain={() => setGameType({ type: "None" })}
+        />
+      );
     case "None":
-      return <StartGame
-        startLocalGame={() => handleLocalGameStart()}
-        startMultiplayerGame={() => handleMultiplayerGameStart()}
-        joinGame={(value: any) => handleJoinGame(value)}
-      />;
+      return (
+        <StartGame
+          startLocalGame={() => handleLocalGameStart()}
+          startMultiplayerGame={() => handleMultiplayerGameStart()}
+          joinGame={(value: string) => handleJoinGame(value)}
+        />
+      );
   }
 };
 

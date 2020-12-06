@@ -35,8 +35,7 @@ const LocalCoopGame = ({
   playerOneId,
   playerTwoId,
   handlePlayAgain,
-}: Props) => {
-
+}: Props): React.ReactElement => {
   const [gameState, setGameState] = useState<GameState>({
     gameId: initialGame.gameId,
     active: initialGame.active,
@@ -49,7 +48,8 @@ const LocalCoopGame = ({
     client
       .makeMove({
         gameId: gameState.gameId,
-        playerId: gameState.activePlayer === Player.One ? playerOneId : playerTwoId,
+        playerId:
+          gameState.activePlayer === Player.One ? playerOneId : playerTwoId,
         column: column,
       })
       .then((game?: Game) => {
@@ -67,12 +67,20 @@ const LocalCoopGame = ({
   return (
     <div className={styles.app}>
       <h2>This is a Local Coop Game</h2>
-      {
-        gameState.winner ?
-          <><h3>Player {gameState.winner}!!</h3>
-            <h2> &#128020; &#127881; &#128020; WINNER WINNER CHICKEN DINNER!!! &#128020; &#127881; &#127881;  </h2></> :
-          <h3>It's Player's {gameState.activePlayer} turn</h3>
-      }
+      {gameState.winner ? (
+        <>
+          <h3>Player {gameState.winner}!!</h3>
+          <h2>
+            &#128020; &#127881; &#128020; WINNER WINNER CHICKEN DINNER!!!
+            &#128020; &#127881; &#127881;
+          </h2>
+        </>
+      ) : (
+        <h3>
+          {"It's Player's "}
+          {gameState.activePlayer} turn
+        </h3>
+      )}
       <Board
         columns={columns}
         rows={rows}

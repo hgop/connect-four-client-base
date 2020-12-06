@@ -5,7 +5,7 @@ import styles from "./Board.module.css";
 import { Props } from "./types";
 
 export default class Board extends React.PureComponent<Props> {
-  renderColumns() {
+  renderColumns(): React.ReactElement {
     const { columns, rows, board, onTileClick } = this.props;
 
     const columnsComponents = [];
@@ -25,7 +25,7 @@ export default class Board extends React.PureComponent<Props> {
     return <>{columnsComponents}</>;
   }
 
-  render() {
+  render(): React.ReactElement {
     return <div className={styles.board}>{this.renderColumns()}</div>;
   }
 }

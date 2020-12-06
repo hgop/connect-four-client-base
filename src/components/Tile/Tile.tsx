@@ -4,7 +4,7 @@ import styles from "./Tile.module.css";
 import { Props } from "./types";
 
 export default class Tile extends React.PureComponent<Props> {
-  render() {
+  render(): React.ReactElement {
     const { id, tile, onClick } = this.props;
     const chipCssClass = classNames(
       styles.chip,

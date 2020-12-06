@@ -101,7 +101,7 @@ export class GameApiClient {
   }
 }
 
-const mockGame = (empty: boolean): Promise<Game> => {
+const mockGame = (_empty: boolean): Promise<Game> => {
   return new Promise((resolve) => {
     resolve({
       active: true,

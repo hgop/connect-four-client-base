@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import Board from "../Board/Board";
 import styles from "./OnlineMultiplayerGame.module.css";
 
-import {
-  Game,
-  GameApiClient,
-} from "../../external_services/game_api_client";
+import { Game, GameApiClient } from "../../external_services/game_api_client";
 
 interface Props {
   columns: number;
@@ -21,7 +18,7 @@ const OnlineMultiplayerGame = ({
   client,
   initialGame,
   handlePlayAgain,
-}: Props) => {
+}: Props): React.ReactElement => {
   const [game, setGame] = useState<Game>(initialGame);
 
   useEffect(() => {
@@ -52,10 +49,10 @@ const OnlineMultiplayerGame = ({
     game.playerCount < 2
       ? "Waiting for more players"
       : game.winner
-        ? `WINNER WINNER CHICKEN DINNER, Player ${game.winner} won the game`
-        : game.active
-          ? `It's Player ${game.activePlayer}'s turn`
-          : "Game finished with a draw";
+      ? `WINNER WINNER CHICKEN DINNER, Player ${game.winner} won the game`
+      : game.active
+      ? `It's Player ${game.activePlayer}'s turn`
+      : "Game finished with a draw";
 
   return (
     <div className={styles.app}>

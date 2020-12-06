@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import styles from "./StartGame.module.css";
-
+interface Props {
+  startMultiplayerGame: () => void;
+  startLocalGame: () => void;
+  joinGame: (id: string) => void;
+}
 export const StartGame = ({
   startMultiplayerGame,
   startLocalGame,
   joinGame,
-}: any) => {
+}: Props): React.ReactElement => {
   const [gameId, setGameId] = useState("");
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGameId(event.target.value);
   };
 

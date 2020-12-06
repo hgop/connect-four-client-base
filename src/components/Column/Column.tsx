@@ -5,7 +5,7 @@ import styles from "./Column.module.css";
 import { Props } from "./types";
 
 export default class Column extends React.PureComponent<Props> {
-  render() {
+  render(): React.ReactElement {
     const { column, rows, board, onTileClick } = this.props;
     const tiles = [];
 

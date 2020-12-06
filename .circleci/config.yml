@@ -11,6 +11,40 @@ executors:
       - image: circleci/buildpack-deps:stretch
 
 jobs:
+  test:
+    docker:
+      - image: circleci/node:12.9.1-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "package.json" }}
+            - dependencies-
+      - run: npm install
+      - save_cache:
+          key: dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+            - ~/.npm 
+            - ~/.cache
+      - run: npm test
+  lint:
+    docker:
+      - image: circleci/node:12.9.1-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "package.json" }}
+            - dependencies-
+      - run: npm install
+      - save_cache:
+          key: dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+            - ~/.npm 
+            - ~/.cache
+      - run: npm run lint
   build:
     executor: docker-publisher
     steps:
@@ -54,7 +88,12 @@ jobs:
 workflows:
   build_test_deploy:
     jobs:
+      - lint
+      - test
       - build
+          requires:
+            - lint
+            - test
       - publish:
           requires:
             - build

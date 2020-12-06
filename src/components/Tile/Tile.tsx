@@ -5,7 +5,7 @@ import { Props } from "./types";
 
 export default class Tile extends React.PureComponent<Props> {
   render() {
-    const { id, tile, onClick = () => {} } = this.props;
+    const { id, tile, onClick } = this.props;
     const chipCssClass = classNames(
       styles.chip,
       tile === 1 ? styles.yellow : styles.red

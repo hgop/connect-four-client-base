@@ -37,7 +37,7 @@ export interface Game {
   playerCount: number;
 }
 
-const API_URL = "GET_URL_FROM_TAS";
+const API_URL = "GET_URL_FROM_TAS_OR_USE_YOURS";
 
 export class GameApiClient {
   createGame(body: CreateGame): Promise<Game> {
